@@ -31,7 +31,7 @@ const createMyRestaurant = async (req: Request, res: Response) => {
         // const uploadResult = await cloudinary.uploader.upload(dataURI);
 
 
-        const imageFile = await uploadImage(req.file as Express.Multer.File);
+        const imageUrl = await uploadImage(req.file as Express.Multer.File);
 
         const newRestaurant = new Restaurant({
             user: req.userId,
@@ -42,7 +42,7 @@ const createMyRestaurant = async (req: Request, res: Response) => {
             estimatedDeliveryTime,
             cuisines,
             menuItems,
-            imageFile,
+            imageUrl,
         });
 
         newRestaurant.user = new mongoose.Types.ObjectId(req.userId!);
@@ -73,8 +73,8 @@ const updateMyRestaurant = async (req: Request, res: Response) => {
         restaurant.lastUpdated = new Date();
 
         if(req.file) {
-            const imageFile = await uploadImage(req.file as Express.Multer.File);
-            restaurant.imageFile = imageFile;
+            const imageUrl = await uploadImage(req.file as Express.Multer.File);
+            restaurant.imageUrl = imageUrl;
         }
 
         await restaurant.save();
