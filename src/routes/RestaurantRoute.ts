@@ -13,6 +13,13 @@ router.get("/search/:city", param("city")
     RestaurantController.searchRestaurant
 );
 
+router.get("/:restaurantId", param("restaurantId")
+    .isString()
+    .trim()
+    .notEmpty()
+    .withMessage("Restaurant parameter must be a valid string"),
+    RestaurantController.getRestaurant
+)
 // router.post("/");
 // router.put("/");
 
