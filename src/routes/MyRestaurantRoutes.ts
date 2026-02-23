@@ -11,6 +11,18 @@ const upload = multer({
     storage: storage,
     limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
 });
+
+router.get('/order',
+    jwtCheck, 
+    jwtParse,
+    MyRestaurantController.getMyRestaurantOrder
+)
+
+router.patch('/order/:orderId/status',
+    jwtCheck, 
+    jwtParse,
+    MyRestaurantController.updateOrderStatus
+)
 router.post('/',
     upload.single("imageFile"), 
     jwtCheck, 
